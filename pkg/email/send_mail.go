@@ -9,14 +9,11 @@ import (
 )
 
 /**
-	Modified from https://gist.github.com/jpillora/cb46d183eca0710d909a
+	Copied from https://github.com/tangingw/go_smtp
 	Thank you very much.
 **/
 
 const (
-	/**
-		Gmail SMTP Server
-	**/
 	SMTPServer = "smtp.gmail.com"
 )
 
