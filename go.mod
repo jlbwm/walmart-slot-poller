@@ -1,4 +1,4 @@
-module main
+module github.com/SidneyJiang/walmart-slot-poller
 
 go 1.14
 
