@@ -3,13 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 	"os"
-	"github.com/SidneyJiang/walmart-slot-poller/pkg/email"
+	"strconv"
+	"time"
 	"github.com/parnurzeal/gorequest"
 )
 
-sender := NewSender(os.Getenv("EMAIL"), os.Getenv("PASSWORD"))
 
 type slot struct {
 	StartDateTime string
@@ -25,14 +24,9 @@ type response struct {
 	SlotDays []slotDay `json:"slotDays"`
 }
 
-func sendmail(message) {
-	fmt.Println("sending email" + message)
-	Receiver := []string{os.Getenv("EMAIL")}
-
-	Subject := "Walmart slot available"
-	bodyMessage := sender.WriteHTMLEmail(Receiver, Subject, message)
-
-	sender.SendMail(Receiver, Subject, bodyMessage)
+func sendmail(message string) {
+	fmt.Println("sending email " + message)
+	Send_Gridmail(message)
 }
 
 func checkAvailability(tt time.Time) {
@@ -52,8 +46,9 @@ func checkAvailability(tt time.Time) {
 	json.Unmarshal([]byte(body), &res)
 	slotDay := res.SlotDays[0]
 	for _, slot := range slotDay.Slots {
-		if slot.Status == "UNAVAILABLE" {
+		if slot.Status == "AVAILABLE" {
 			sendmail(fmt.Sprintf("%s -- %s Slot is %s\n", slot.StartDateTime, slot.EndDateTime, slot.Status))
+			return
 		}
 	}
 }
@@ -65,5 +60,6 @@ func doEvery(d time.Duration, f func(time.Time)) {
 }
 
 func main() {
-	doEvery(60*time.Second, checkAvailability)
+	period, _ := strconv.ParseInt(os.Getenv("PERIOD"), 32, 32)
+	doEvery(time.Duration(period)*time.Second, checkAvailability)
 }

@@ -14,7 +14,9 @@ import (
 **/
 
 const (
-	SMTPServer = "smtp.gmail.com"
+	GOOGLE_SMTPServer  = "smtp.gmail.com"     // 587
+	OUTLOOK_SMTPSERVER = "smtp.office365.com" // 587
+	GRID_SMTPSERVER    = "smtp.sendgrid.net"      // 465
 )
 
 type Sender struct {
@@ -33,8 +35,8 @@ func (sender Sender) SendMail(Dest []string, Subject, bodyMessage string) {
 		"To: " + strings.Join(Dest, ",") + "\n" +
 		"Subject: " + Subject + "\n" + bodyMessage
 
-	err := smtp.SendMail(SMTPServer+":587",
-		smtp.PlainAuth("", sender.User, sender.Password, SMTPServer),
+	err := smtp.SendMail(GRID_SMTPSERVER+":465",
+		smtp.PlainAuth("", sender.User, sender.Password, GRID_SMTPSERVER),
 		sender.User, Dest, []byte(msg))
 
 	if err != nil {
