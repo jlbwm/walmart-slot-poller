@@ -90,6 +90,7 @@ func doEvery(d time.Duration, f func(time.Time)) {
 }
 
 func main() {
-	period, _ := strconv.ParseInt(os.Getenv("PERIOD"), 32, 32)
+	fmt.Printf("Start app and waiting for %s \n", os.Getenv("PERIOD"))
+	period, _ := strconv.ParseInt(os.Getenv("PERIOD"), 10, 32)
 	doEvery(time.Duration(period)*time.Second, checkAvailability)
 }
