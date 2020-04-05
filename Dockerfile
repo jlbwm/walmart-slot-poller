@@ -9,13 +9,13 @@ ENV TOEMAIL=jiangsid87@gmail.com
 ENV USERNAME=apikey
 ENV PASSWORD=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
 ENV PERIOD=1800
-RUN adduser \    
-    --disabled-password \    
-    --gecos "" \    
-    --home "/nonexistent" \    
-    --shell "/sbin/nologin" \    
-    --no-create-home \    
-    --uid "${UID}" \    
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
     "${USER}"
 
 WORKDIR /walmart-slot-poller
