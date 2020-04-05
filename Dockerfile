@@ -14,7 +14,7 @@ RUN adduser \
     --uid "${UID}" \    
     "${USER}"
 
-WORKDIR $GOPATH/src/walmart-slot-poller
+WORKDIR /walmart-slot-poller
 
 COPY go.mod .
 COPY go.sum .
