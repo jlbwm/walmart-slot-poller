@@ -13,8 +13,7 @@ import (
 )
 
 const (
-	BARHAVEN = "04d2977e-f1be-4d97-86da-a0c3d03c1e8c"
-	BANK     = "ead03854-8104-443a-a958-990332366269"
+	Toronto = "5b755848-3e2e-490e-ba80-56bf3fbc5bb6"
 )
 
 type slot struct {
@@ -41,8 +40,8 @@ func sendmail(message string) {
 
 func checkAvailability(tt time.Time) {
 	today := time.Now()
-	sevenDayLater := today.AddDate(0, 0, 7)
-	eightDayLater := today.AddDate(0, 0, 8)
+	sevenDayLater := today.AddDate(0, 0, 1)
+	eightDayLater := today.AddDate(0, 0, 7)
 	layout := "2006-01-02"
 	startDate := sevenDayLater.Format(layout)
 	endDate := eightDayLater.Format(layout)
@@ -50,15 +49,22 @@ func checkAvailability(tt time.Time) {
 	requestBody, err := json.Marshal(map[string]interface{}{
 		"startDate":     startDate,
 		"endDate":       endDate,
-		"accessPointId": BARHAVEN,
+		"accessPointId": Toronto,
 		"serviceInfo": map[string]string{
-			"fulfillmentType": "INSTORE_PICKUP",
+			"fulfillmentType": "DELIVERY",
+		},
+		"customerInfo": map[string]interface{}{
+			"customerAddress": map[string]interface{}{
+				"postalCode":          "M5V 2Y6",
+				"stateOrProvinceName": "ON",
+				"latitude":            43.6439056396,
+				"longitude":           -79.402961731,
+			},
 		},
 	})
 	if err != nil {
 		log.Fatalln(err)
 	}
-
 	resp, err := http.Post("https://www.walmart.ca/api/cart-page/accesspoints/slotavailability?grocery=true", "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
 		log.Fatalln(err)
@@ -77,6 +83,7 @@ func checkAvailability(tt time.Time) {
 		for _, slot := range slotDay.Slots {
 			if slot.Status == "AVAILABLE" {
 				sendmail(fmt.Sprintf("%s -- %s Slot is %s\n", slot.StartDateTime, slot.EndDateTime, slot.Status))
+				fmt.Println(fmt.Sprintf("%s -- %s Slot is %s\n", slot.StartDateTime, slot.EndDateTime, slot.Status))
 				return
 			}
 		}
