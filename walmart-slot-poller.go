@@ -15,6 +15,9 @@ import (
 const (
 	Toronto = "5b755848-3e2e-490e-ba80-56bf3fbc5bb6"
 )
+const (
+	Subscription = "Congratulations on your successful subscription to the Walmart(Toronto) slot reminder service, we will automatically check the available slots every hour and remind you by email"
+)
 
 type slot struct {
 	StartDateTime string
@@ -97,7 +100,7 @@ func doEvery(d time.Duration, f func(time.Time)) {
 }
 
 func main() {
-	sendmail(fmt.Sprintf("Start app and waiting for %s \n", os.Getenv("PERIOD")))
+	sendmail(Subscription)
 	fmt.Printf("Start app and waiting for %s \n", os.Getenv("PERIOD"))
 	period, _ := strconv.ParseInt(os.Getenv("PERIOD"), 10, 32)
 	doEvery(time.Duration(period)*time.Second, checkAvailability)
