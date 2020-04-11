@@ -1,2 +1,3 @@
 # walmart-slot-poller
-Fun app to poll walmart slot availability 
+
+Power by SendGrid for email service.
