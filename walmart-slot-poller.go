@@ -16,7 +16,9 @@ const (
 	Toronto = "5b755848-3e2e-490e-ba80-56bf3fbc5bb6"
 )
 const (
-	Subscription = "Congratulations on your successful subscription to the Walmart(Toronto) slot reminder service, we will automatically check the available slots every hour and remind you by email"
+	Subscription = "Congratulations on your successful subscription to the Walmart(Toronto) slot reminder service.
+	
+	We will automatically check the available slots every hour and remind you by email"
 )
 
 type slot struct {
