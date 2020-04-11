@@ -5,10 +5,10 @@ RUN apk update && apk add --no-cache git
 # Create appuser.
 ENV USER=appuser
 ENV UID=10001
-ENV TOEMAIL=jiangsid87@gmail.com
-ENV USERNAME=apikey
-ENV PASSWORD=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
-ENV PERIOD=1800
+ENV TOEMAIL=ljx477@gmail.com
+ENV USERNAME=walmart-bot
+ENV PASSWORD=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
+ENV PERIOD=10
 RUN adduser \
     --disabled-password \
     --gecos "" \

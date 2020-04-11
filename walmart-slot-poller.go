@@ -40,8 +40,8 @@ func sendmail(message string) {
 
 func checkAvailability(tt time.Time) {
 	today := time.Now()
-	sevenDayLater := today.AddDate(0, 0, 1)
-	eightDayLater := today.AddDate(0, 0, 7)
+	sevenDayLater := today.AddDate(0, 0, 7)
+	eightDayLater := today.AddDate(0, 0, 8)
 	layout := "2006-01-02"
 	startDate := sevenDayLater.Format(layout)
 	endDate := eightDayLater.Format(layout)
@@ -97,6 +97,7 @@ func doEvery(d time.Duration, f func(time.Time)) {
 }
 
 func main() {
+	sendmail(fmt.Sprintf("Start app and waiting for %s \n", os.Getenv("PERIOD")))
 	fmt.Printf("Start app and waiting for %s \n", os.Getenv("PERIOD"))
 	period, _ := strconv.ParseInt(os.Getenv("PERIOD"), 10, 32)
 	doEvery(time.Duration(period)*time.Second, checkAvailability)
