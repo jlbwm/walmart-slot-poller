@@ -5,10 +5,10 @@ RUN apk update && apk add --no-cache git
 # Create appuser.
 ENV USER=appuser
 ENV UID=10001
-ENV TOEMAIL1=ljz0508@gmail.com
-ENV TOEMAIL2=ljx477@gmail.com
+ENV TOEMAIL1=example1@user.com
+ENV TOEMAIL2=example2@user.com
 ENV USERNAME=walmart-bot
-ENV PASSWORD=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
+ENV PASSWORD=<get from sendGrid>
 ENV PERIOD=3600
 RUN adduser \
     --disabled-password \
